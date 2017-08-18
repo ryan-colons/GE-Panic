@@ -5,13 +5,13 @@ Let's make a little game you guys!
 
 ### Getting Started
 
-* Download Github for Unity here https://github.com/github-for-unity/Unity/releases/tag/v0.16-alpha
+* Download Git GUI here https://git-scm.com/downloads (or try the desktop client if you want https://desktop.github.com/)
 * Install Unity
-* Open up a Unity project and run the Github-For-Unity package to import it
-* Put the url of this repo (https://github.com/rycoll/GE-Panic/) in the repo field and Pull
-* Hopefully that'll work. It seems to be a bit buggy? (otherwise "git pull" on the command line might work?)
-* When you want to push, go to the command line (via the Github menu at the top) and type "git push -u origin master" (no quotes)
-  * I got an error doing this, but just disable lfs with the command it suggests and retry
+* From the Git client, clone this repo (https://github.com/rycoll/GE-Panic) to a folder (probably in your Documents, I think that's where Unity looks for projects?)
+* Now you can load up the project in Unity!
+* Before making any changes, Remote>Fetch From>origin and Merge>Local Merge. This pulls any changes that someone else might have made.
+* After making changes, press Rescan (so it can figure out what you've changed), then select the changes you want to publish and press Stage To Commit in the Commit menu up the top. Then, type in a commit message (brief summary of what you changed) and hit commit. Then press push, to publish everything you've committed.
+  * When choosing what to stage/commit/push, probably just the stuff under Assets is the way to go.
 
 ### Gameplay
 
