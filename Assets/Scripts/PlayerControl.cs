@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour {
 	public float speed;
 	private Rigidbody body;
 	private Vector3 startPos;
+	public string horizInput, vertInput;
 
 	void Start () {
 		body = GetComponent<Rigidbody> ();
@@ -15,8 +16,8 @@ public class PlayerControl : MonoBehaviour {
 
 	void FixedUpdate () {
 		//apparently FixedUpdate() should be used with rigidbodies, instead of Update()
-		float horiz_move = Input.GetAxis("Horizontal");
-		float vert_move = Input.GetAxis ("Vertical");
+		float horiz_move = Input.GetAxis(horizInput);
+		float vert_move = Input.GetAxis (vertInput);
 
 		Vector3 move = new Vector3 (horiz_move, 0f, vert_move);
 
