@@ -10,11 +10,11 @@ public class GameController : MonoBehaviour {
 		DontDestroyOnLoad (this.gameObject);
 	}
 
-	private void startGame () {
+	public void startGame () {
 		SceneManager.LoadScene ("arena");
 	}
 
-	private void exitApplication () {
+	public void exitApplication () {
 		Application.Quit ();
 	}
 }
