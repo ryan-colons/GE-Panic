@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour {
 
+	public int playerID;
 	public float speed;
 	private Rigidbody body;
 	private Vector3 startPos;
 	public string horizInput, vertInput, boostInput;
 	private float boostTimeout;
 	public float maxBoostTimeout = 10f;
+	public Text boostText;
 
 	private void Start () {
 		body = GetComponent<Rigidbody> ();
@@ -33,11 +36,18 @@ public class PlayerControl : MonoBehaviour {
 		if (boostTimeout > 0) {
 			boostTimeout -= Time.deltaTime;
 		}
+
+		boostText.text = ((int)boostTimeout).ToString ();
 	}
 
 	public void respawn () {
 		this.transform.position = startPos;
 		body.velocity = Vector3.zero;
 		body.angularVelocity = Vector3.zero;
+		boostTimeout = maxBoostTimeout;
+	}
+
+	public float getBoostTimeout () {
+		return boostTimeout;
 	}
 }
