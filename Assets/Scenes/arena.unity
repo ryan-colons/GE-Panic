@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 69999498}
   - component: {fileID: 69999499}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Arena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,6 +241,8 @@ MonoBehaviour:
   speed: 5
   horizInput: P2_Horiz
   vertInput: P2_Vert
+  boostInput: P2_Boost
+  maxBoostTimeout: 10
 --- !u!23 &647906488
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -315,6 +317,7 @@ GameObject:
   - component: {fileID: 815039214}
   - component: {fileID: 815039213}
   - component: {fileID: 815039212}
+  - component: {fileID: 815039211}
   m_Layer: 0
   m_Name: Death Cube
   m_TagString: Respawn
@@ -322,6 +325,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &815039211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815039210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d09055babc41c43910785ed1a7dec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &815039212
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -388,6 +402,8 @@ MonoBehaviour:
   speed: 5
   horizInput: P1_Horiz
   vertInput: P1_Vert
+  boostInput: P1_Boost
+  maxBoostTimeout: 10
 --- !u!23 &930327150
 MeshRenderer:
   m_ObjectHideFlags: 0
