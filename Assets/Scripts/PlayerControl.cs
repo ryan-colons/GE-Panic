@@ -11,8 +11,8 @@ public class PlayerControl : MonoBehaviour {
 	private Vector3 startPos;
 	public string horizInput, vertInput, boostInput;
 	private float boostTimeout;
-	public float maxBoostTimeout = 10f;
-	public Text boostText;
+	private float maxBoostTimeout = 5f;
+	public Slider boostSlider;
 
 	private void Start () {
 		body = GetComponent<Rigidbody> ();
@@ -37,14 +37,14 @@ public class PlayerControl : MonoBehaviour {
 			boostTimeout -= Time.deltaTime;
 		}
 
-		boostText.text = ((int)boostTimeout).ToString ();
+		boostSlider.value = 1 - (boostTimeout / maxBoostTimeout);
 	}
 
 	public void respawn () {
 		this.transform.position = startPos;
 		body.velocity = Vector3.zero;
 		body.angularVelocity = Vector3.zero;
-		boostTimeout = maxBoostTimeout;
+		boostTimeout = 0;
 	}
 
 	public float getBoostTimeout () {
