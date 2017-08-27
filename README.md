@@ -11,7 +11,6 @@ Let's make a little game you guys!
 * Now you can load up the project in Unity!
 * Before making any changes, Remote>Fetch From>origin and Merge>Local Merge. This pulls any changes that someone else might have made.
 * After making changes, press Rescan (so it can figure out what you've changed), then select the changes you want to publish and press Stage To Commit in the Commit menu up the top. Then, type in a commit message (brief summary of what you changed) and hit commit. Then press push, to publish everything you've committed.
-  * When choosing what to stage/commit/push, probably just the stuff under Assets is the way to go.
 
 ### Gameplay
 
