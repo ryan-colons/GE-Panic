@@ -10,8 +10,13 @@ public class MainMenu : MonoBehaviour {
 	private Text[] options = new Text[2];
 	private int optionIndex;
 	private float menuScrollRefresh = 0f, maxScrollRefresh = 0.25f;
-	private bool[] players = {true, false, false, false};
+
 	private GameObject[] playerSelectTexts = new GameObject[4];
+
+	private Text titleText;
+	private string title = "Grue Eaters: Panic!";
+	private string instructions = "Press Boost to join! Press Alt to leave!\n" +
+	                              "Player One, press Boost to start the game, or Alt to go back!";
 
 	private void Start () {
 		game = GameObject.Find ("Game Controller").GetComponent<GameController> ();
@@ -23,6 +28,7 @@ public class MainMenu : MonoBehaviour {
 		playerSelectTexts [1] = transform.Find ("Player Select Panel/P2 Select Text").gameObject;
 		playerSelectTexts [2] = transform.Find ("Player Select Panel/P3 Select Text").gameObject;
 		playerSelectTexts [3] = transform.Find ("Player Select Panel/P4 Select Text").gameObject;
+		titleText = transform.Find ("Title Text").GetComponent<Text> ();
 	}
 
 	private void openPlayerSelectMenu () {
@@ -30,6 +36,7 @@ public class MainMenu : MonoBehaviour {
 			txt.gameObject.SetActive (false);
 		}
 		playerSelectPanel.SetActive (true);
+		titleText.text = instructions;
 	}
 
 	private void openMainMenu() {
@@ -37,6 +44,7 @@ public class MainMenu : MonoBehaviour {
 		foreach (Text txt in options) {
 			txt.gameObject.SetActive (true);
 		}
+		titleText.text = title;
 	}
 
 	private void Update () {
@@ -51,26 +59,28 @@ public class MainMenu : MonoBehaviour {
 
 		/* this is a little bit garbage lol */
 
+		if (Input.GetButton ("P1_Boost"))
+			game.startGame ();
 		if (Input.GetButton ("P2_Boost"))
-			players [1] = true;
+			game.setPlayer (1, true);
 		if (Input.GetButton ("P3_Boost"))
-			players [2] = true;
+			game.setPlayer (2, true);
 		if (Input.GetButton ("P4_Boost"))
-			players [3] = true;
+			game.setPlayer (3, true);
 
 		if (Input.GetButton ("P1_Alt")) {
 			openMainMenu ();
 			return;
 		}
 		if (Input.GetButton ("P2_Alt"))
-			players [1] = false;
+			game.setPlayer (1, false);
 		if (Input.GetButton ("P2_Alt"))
-			players [2] = false;
+			game.setPlayer (2, false);
 		if (Input.GetButton ("P2_Alt"))
-			players [1] = false;
+			game.setPlayer (3, false);
 
 		for (int i = 0; i < playerSelectTexts.Length; i++) {
-			if (players [i])
+			if (game.getPlayers()[i])
 				playerSelectTexts [i].SetActive (true);
 			else
 				playerSelectTexts [i].SetActive (false);

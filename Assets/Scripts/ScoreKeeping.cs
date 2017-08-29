@@ -11,8 +11,8 @@ public class ScoreKeeping : MonoBehaviour {
 	private void updateScoreText () {
 		p1ScoreText.text = scores[0].ToString() + " deaths";
 		p2ScoreText.text = scores[1].ToString() + " deaths";
-		//p3ScoreText.text = scores[2].ToString();
-		//p4ScoreText.text = scores[3].ToString();
+		p3ScoreText.text = scores[2].ToString() + " deaths";
+		p4ScoreText.text = scores[3].ToString() + " deaths";
 	}
 
 	private void OnTriggerEnter (Collider other) {
