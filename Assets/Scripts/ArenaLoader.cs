@@ -54,7 +54,7 @@ public class ArenaLoader : MonoBehaviour {
 		}
 		int winIndex = 0;
 		for (int i = 0; i < scores.Length; i++) {
-			if (scores [i] < scores [winIndex])
+			if (scores [i] < scores [winIndex] && playerSelectionArray[i])
 				winIndex = i;
 		}
 		winPanel.transform.Find ("Winner Text").GetComponent<Text> ().text = "Player " + (winIndex + 1) + " is a WINNER!";
