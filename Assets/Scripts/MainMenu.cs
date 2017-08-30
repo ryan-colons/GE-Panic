@@ -74,9 +74,9 @@ public class MainMenu : MonoBehaviour {
 		}
 		if (Input.GetButton ("P2_Alt"))
 			game.setPlayer (1, false);
-		if (Input.GetButton ("P2_Alt"))
+		if (Input.GetButton ("P3_Alt"))
 			game.setPlayer (2, false);
-		if (Input.GetButton ("P2_Alt"))
+		if (Input.GetButton ("P4_Alt"))
 			game.setPlayer (3, false);
 
 		for (int i = 0; i < playerSelectTexts.Length; i++) {

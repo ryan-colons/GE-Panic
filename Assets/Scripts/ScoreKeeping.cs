@@ -25,4 +25,8 @@ public class ScoreKeeping : MonoBehaviour {
 			Destroy (other.gameObject);
 		}
 	}
+
+	public int[] getScores() {
+		return scores;
+	}
 }

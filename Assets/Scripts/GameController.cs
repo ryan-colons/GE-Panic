@@ -12,8 +12,12 @@ public class GameController : MonoBehaviour {
 		DontDestroyOnLoad (this.gameObject);
 	}
 
+	public void mainMenu() {
+		SceneManager.LoadScene ("Main");
+	}
+
 	public void startGame () {
-		SceneManager.LoadScene("Arena");
+		SceneManager.LoadScene ("Arena");
 	}
 
 	public void exitApplication () {
