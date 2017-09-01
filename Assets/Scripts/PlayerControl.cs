@@ -14,13 +14,20 @@ public class PlayerControl : MonoBehaviour {
 	private float maxBoostTimeout = 5f;
 	public Slider boostSlider;
 
+	private bool paused;
+	private Vector3 pause_velocity;
+	private Vector3 pause_angular_velocity;
+
 	private void Start () {
 		body = GetComponent<Rigidbody> ();
 		startPos = transform.position;
+		paused = false;
 	}
 
 	private void FixedUpdate () {
 		//apparently FixedUpdate() should be used with rigidbodies, instead of Update()
+		if (paused) return;
+
 		float horiz_move = Input.GetAxis(horizInput);
 		float vert_move = Input.GetAxis (vertInput);
 
@@ -49,5 +56,19 @@ public class PlayerControl : MonoBehaviour {
 
 	public float getBoostTimeout () {
 		return boostTimeout;
+	}
+
+	public void pause () {
+		Debug.Log ("Pause " + playerID);
+		pause_velocity = body.velocity;
+		pause_angular_velocity = body.angularVelocity;
+		body.velocity = Vector3.zero;
+		body.angularVelocity = Vector3.zero;
+		paused = true;
+	}
+	public void unpause () {
+		body.velocity = pause_velocity;
+		body.angularVelocity = pause_angular_velocity;
+		paused = false;
 	}
 }

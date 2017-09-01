@@ -38,4 +38,7 @@ public class Clock : MonoBehaviour {
 	public void setTicking (bool b) {
 		ticking = b;
 	}
+	public bool isTicking () {
+		return ticking;
+	}
 }

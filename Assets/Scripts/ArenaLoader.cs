@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* All of this is a -little- bit garbage.
+ * Basically, this class should do less, I think. */
+
 public class ArenaLoader : MonoBehaviour {
 
 	public GameObject winPanel;
+	private float pauseRefresh = 0f, maxPauseRefresh = 0.25f;
 
 	/* I added this little class (playerObjects) just to
 	 * make it easier to set up the player objects in the inspector.
@@ -15,6 +19,7 @@ public class ArenaLoader : MonoBehaviour {
 	public class playerObjects {
 		public GameObject player;
 		public GameObject text;
+		public bool ingame;
 	}
 
 	public playerObjects[] players;
@@ -38,9 +43,11 @@ public class ArenaLoader : MonoBehaviour {
 			if (playerSelectionArray [i]) {
 				players [i].player.SetActive (true);
 				players [i].text.SetActive (true);
+				players [i].ingame = true;
 			} else {
 				players [i].player.SetActive (false);
 				players [i].text.SetActive (false);
+				players [i].ingame = false;
 			}
 		}
 	}
@@ -66,6 +73,23 @@ public class ArenaLoader : MonoBehaviour {
 				GameObject.Find ("Game Controller").GetComponent<GameController> ().startGame ();
 			if (Input.GetButton ("P1_Alt"))
 				GameObject.Find ("Game Controller").GetComponent<GameController> ().mainMenu ();
+		} else {
+			if ((Input.GetButton ("P1_Alt") || Input.GetButton ("P2_Alt") || Input.GetButton ("P3_Alt") || Input.GetButton ("P4_Alt")) && !(pauseRefresh > 0f)) {
+				if (clock.isTicking()) {
+					foreach (playerObjects obj in players) {
+						if (obj.ingame) obj.player.GetComponent<PlayerControl> ().pause ();
+					}
+					clock.setTicking (false);
+				} else {
+					foreach (playerObjects obj in players) {
+						if (obj.ingame) obj.player.GetComponent<PlayerControl> ().unpause ();
+					}
+					clock.setTicking (true);
+				}
+				pauseRefresh = maxPauseRefresh;
+			}
+			if (pauseRefresh > 0f)
+				pauseRefresh -= Time.deltaTime;
 		}
 	}
 

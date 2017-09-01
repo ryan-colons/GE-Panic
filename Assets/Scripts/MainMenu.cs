@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour {
 	private GameObject[] playerSelectTexts = new GameObject[4];
 
 	private Text titleText;
-	private string title = "Grue Eaters: Panic!";
+	private string title = "High Rollers";
 	private string instructions = "Press Boost to join! Press Alt to leave!\n" +
 	                              "Player One, press Boost to start the game, or Alt to go back!";
 
