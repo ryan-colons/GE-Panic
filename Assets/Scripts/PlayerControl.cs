@@ -64,11 +64,13 @@ public class PlayerControl : MonoBehaviour {
 		pause_angular_velocity = body.angularVelocity;
 		body.velocity = Vector3.zero;
 		body.angularVelocity = Vector3.zero;
+		body.useGravity = false;
 		paused = true;
 	}
 	public void unpause () {
 		body.velocity = pause_velocity;
 		body.angularVelocity = pause_angular_velocity;
+		body.useGravity = true;
 		paused = false;
 	}
 }
