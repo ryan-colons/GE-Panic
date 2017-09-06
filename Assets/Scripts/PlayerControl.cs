@@ -31,7 +31,7 @@ public class PlayerControl : MonoBehaviour {
 		float horiz_move = Input.GetAxis(horizInput);
 		float vert_move = Input.GetAxis (vertInput);
 
-		if (Input.GetButton (boostInput) && boostTimeout <= 0f) {
+		if (Input.GetButton (boostInput) && boostTimeout <= 0f && !paused) {
 			horiz_move *= 50f;
 			vert_move *= 50f;
 			boostTimeout = maxBoostTimeout;

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class ArenaLoader : MonoBehaviour {
 
 	public GameObject winPanel;
+	public GameObject pauseText;
 	private float pauseRefresh = 0f, maxPauseRefresh = 0.25f;
 
 	/* I added this little class (playerObjects) just to
@@ -74,17 +75,26 @@ public class ArenaLoader : MonoBehaviour {
 			if (Input.GetButton ("P1_Alt"))
 				GameObject.Find ("Game Controller").GetComponent<GameController> ().mainMenu ();
 		} else {
+			/*probably need to make isTicking the outer condition, then check input inside*/
 			if ((Input.GetButton ("P1_Alt") || Input.GetButton ("P2_Alt") || Input.GetButton ("P3_Alt") || Input.GetButton ("P4_Alt")) && !(pauseRefresh > 0f)) {
 				if (clock.isTicking()) {
 					foreach (playerObjects obj in players) {
 						if (obj.ingame) obj.player.GetComponent<PlayerControl> ().pause ();
 					}
 					clock.setTicking (false);
+					pauseText.SetActive (true);
 				} else {
+					GameObject.Find ("Game Controller").GetComponent<GameController> ().mainMenu ();
+				}
+				pauseRefresh = maxPauseRefresh;
+			}
+			if ((Input.GetButton ("P1_Boost") || Input.GetButton ("P2_Boost") || Input.GetButton ("P3_Boost") || Input.GetButton ("P4_Boost")) && !(pauseRefresh > 0f)) {
+				if (!clock.isTicking()) {
 					foreach (playerObjects obj in players) {
 						if (obj.ingame) obj.player.GetComponent<PlayerControl> ().unpause ();
 					}
 					clock.setTicking (true);
+					pauseText.SetActive (false);
 				}
 				pauseRefresh = maxPauseRefresh;
 			}
