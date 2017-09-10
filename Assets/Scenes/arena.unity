@@ -1981,9 +1981,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Boost to resume
+  m_Text: 'Alt to resume
 
-    Alt to quit'
+    Boost to quit'
 --- !u!222 &1970335521
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -68,6 +68,10 @@ public class ArenaLoader : MonoBehaviour {
 		winPanel.transform.Find ("Winner Text").GetComponent<Text> ().text = "Player " + (winIndex + 1) + " is a WINNER!";
 	}
 
+	/* Let the record show that I acknowledge that the Pause stuff shouldn't be part of this class.
+	 * This should probably be rectified eventually!
+	 */
+
 	private void Update () {
 		if (winPanel.activeSelf) {
 			if (Input.GetButton ("P1_Boost"))
@@ -75,28 +79,32 @@ public class ArenaLoader : MonoBehaviour {
 			if (Input.GetButton ("P1_Alt"))
 				GameObject.Find ("Game Controller").GetComponent<GameController> ().mainMenu ();
 		} else {
-			/*probably need to make isTicking the outer condition, then check input inside*/
-			if ((Input.GetButton ("P1_Alt") || Input.GetButton ("P2_Alt") || Input.GetButton ("P3_Alt") || Input.GetButton ("P4_Alt")) && !(pauseRefresh > 0f)) {
-				if (clock.isTicking()) {
+			if (clock.isTicking ()) {
+				// if the clock is ticking, and you press Alt the game should pause
+				if ((Input.GetButton ("P1_Alt") || Input.GetButton ("P2_Alt") || Input.GetButton ("P3_Alt") || Input.GetButton ("P4_Alt")) && !(pauseRefresh > 0f)) {
 					foreach (playerObjects obj in players) {
 						if (obj.ingame) obj.player.GetComponent<PlayerControl> ().pause ();
 					}
 					clock.setTicking (false);
 					pauseText.SetActive (true);
-				} else {
-					GameObject.Find ("Game Controller").GetComponent<GameController> ().mainMenu ();
+					pauseRefresh = maxPauseRefresh;
 				}
-				pauseRefresh = maxPauseRefresh;
-			}
-			if ((Input.GetButton ("P1_Boost") || Input.GetButton ("P2_Boost") || Input.GetButton ("P3_Boost") || Input.GetButton ("P4_Boost")) && !(pauseRefresh > 0f)) {
-				if (!clock.isTicking()) {
+			} else {
+				// if the clock isn't ticking, and you press Alt the game should resume
+				if ((Input.GetButton ("P1_Alt") || Input.GetButton ("P2_Alt") || Input.GetButton ("P3_Alt") || Input.GetButton ("P4_Alt")) && !(pauseRefresh > 0f)) {
 					foreach (playerObjects obj in players) {
 						if (obj.ingame) obj.player.GetComponent<PlayerControl> ().unpause ();
 					}
 					clock.setTicking (true);
 					pauseText.SetActive (false);
+					pauseRefresh = maxPauseRefresh;
 				}
-				pauseRefresh = maxPauseRefresh;
+				// if the clock isn't ticking and you press Boost the game should quit
+				// Boost should be the quit button, rather than the resume button, because otherwise you Boost on resuming which is dumb
+				// possible problem: other player accidentally tries to boost just as you pause, and quits the game :/
+				if ((Input.GetButton ("P1_Boost") || Input.GetButton ("P2_Boost") || Input.GetButton ("P3_Boost") || Input.GetButton ("P4_Boost")) && !(pauseRefresh > 0f)) {
+					GameObject.Find ("Game Controller").GetComponent<GameController> ().mainMenu ();
+				}
 			}
 			if (pauseRefresh > 0f)
 				pauseRefresh -= Time.deltaTime;
