@@ -29,7 +29,7 @@ public class ArenaLoader : MonoBehaviour {
 	private void Awake () {
 		loadArena ();
 		clock = GetComponent<Clock> ();
-		clock.setTime (20f);
+		clock.setTime (120f);
 		clock.setTicking (true);
 	}
 

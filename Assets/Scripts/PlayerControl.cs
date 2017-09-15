@@ -30,16 +30,15 @@ public class PlayerControl : MonoBehaviour {
 
 		float horiz_move = Input.GetAxis(horizInput);
 		float vert_move = Input.GetAxis (vertInput);
-
-		if (Input.GetButton (boostInput) && boostTimeout <= 0f && !paused) {
-			horiz_move *= 50f;
-			vert_move *= 50f;
-			boostTimeout = maxBoostTimeout;
-		}
-
 		Vector3 move = new Vector3 (horiz_move, 0f, vert_move);
 
-		body.AddForce (move * speed);
+		float multiplier = 1f;
+		if (Input.GetButton (boostInput) && boostTimeout <= 0f && !paused) {
+			multiplier = 50f;
+			boostTimeout = maxBoostTimeout;
+		}
+			
+		body.AddForce (move * speed * multiplier);
 		if (boostTimeout > 0) {
 			boostTimeout -= Time.deltaTime;
 		}
