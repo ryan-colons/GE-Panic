@@ -12,7 +12,10 @@ public class PlayerControl : MonoBehaviour {
 	public string horizInput, vertInput, boostInput;
 	private float boostTimeout;
 	private float maxBoostTimeout = 5f;
+	private float touchTimeout, maxTouchTimeout = 3f;
 	public Slider boostSlider;
+
+	private GameObject lastPlayerTouched;
 
 	private bool paused;
 	private Vector3 pause_velocity;
@@ -44,6 +47,21 @@ public class PlayerControl : MonoBehaviour {
 		}
 
 		boostSlider.value = 1 - (boostTimeout / maxBoostTimeout);
+
+		if (lastPlayerTouched != null) {
+			if (touchTimeout > 0f) {
+				touchTimeout -= Time.deltaTime;
+			} else {
+				lastPlayerTouched = null;
+			}
+		}
+	}
+
+	private void OnCollisionEnter (Collision coll) {
+		if (coll.gameObject.tag.Equals ("Player")) {
+			lastPlayerTouched = coll.gameObject;
+			touchTimeout = maxTouchTimeout;
+		}
 	}
 
 	public void respawn () {
@@ -51,6 +69,7 @@ public class PlayerControl : MonoBehaviour {
 		body.velocity = Vector3.zero;
 		body.angularVelocity = Vector3.zero;
 		boostTimeout = 0;
+		lastPlayerTouched = null;
 	}
 
 	public float getBoostTimeout () {
@@ -71,5 +90,9 @@ public class PlayerControl : MonoBehaviour {
 		body.angularVelocity = pause_angular_velocity;
 		body.useGravity = true;
 		paused = false;
+	}
+
+	public GameObject getLastPlayerTouched () {
+		return lastPlayerTouched;
 	}
 }

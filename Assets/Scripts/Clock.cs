@@ -24,11 +24,11 @@ public class Clock : MonoBehaviour {
 
 	private void updateClockText () {
 		string str = "";
-		if (time > 60f)
+		if (time >= 60f)
 			str += (int)time / 60 + ":";
-		if (time % 61 < 10)
+		if (time % 60 < 10)
 			str += "0";
-		str += (int)time % 61;
+		str += (int)time % 60;
 		clockText.text = str;
 	}
 

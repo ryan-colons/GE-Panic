@@ -9,17 +9,21 @@ public class ScoreKeeping : MonoBehaviour {
 	private int[] scores = {0, 0, 0, 0};
 
 	private void updateScoreText () {
-		p1ScoreText.text = scores[0].ToString() + " deaths";
-		p2ScoreText.text = scores[1].ToString() + " deaths";
-		p3ScoreText.text = scores[2].ToString() + " deaths";
-		p4ScoreText.text = scores[3].ToString() + " deaths";
+		p1ScoreText.text = scores[0].ToString() + " points";
+		p2ScoreText.text = scores[1].ToString() + " points";
+		p3ScoreText.text = scores[2].ToString() + " points";
+		p4ScoreText.text = scores[3].ToString() + " points";
 	}
 
 	private void OnTriggerEnter (Collider other) {
 		if (other.tag.Equals ("Player")) {
 			PlayerControl player = other.GetComponent<PlayerControl> ();
-			scores [player.playerID - 1]++;
-			updateScoreText();
+			GameObject lastTouchedObj = player.getLastPlayerTouched ();
+			if (lastTouchedObj != null) {
+				PlayerControl lastTouchedPlayer = lastTouchedObj.GetComponent<PlayerControl> ();
+				scores [lastTouchedPlayer.playerID - 1]++;
+				updateScoreText ();
+			}
 			player.respawn ();
 		} else {
 			Destroy (other.gameObject);
